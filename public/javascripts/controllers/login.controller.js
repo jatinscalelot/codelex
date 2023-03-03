@@ -11,19 +11,12 @@ app.controller("LoginController", ($scope, $http,) => {
         }).then(
             function (response) {
                 if (response.data.IsSuccess == true && response.data.Data != 0) {
-                    sessionStorage.setItem("userName", response.data.Data[0].name);
-                    sessionStorage.setItem(CHANNEL_DATA, response.data.Data[0].channelId);
-                    sessionStorage.setItem(UNIQID, response.data.Data[0]._id);
-                    sessionStorage.setItem(USER_ROLE, response.data.Data[0].roleId.name);
-                    sessionStorage.setItem("LoginToken", response.data.Data[0].loginToken);
-                    window.location.href = "/chats";
+                    window.location.href = "/dashboard";
                 } else {
-                    $('#loadingdiv').hide();
-                    swal("Oops", response.data.Message, "error")
+                    swal("Oops", response.data.Message, "error");
                 }
             },
             function (error) {
-                $('#loadingdiv').hide();
                 console.log(error);
                 if (error.status == 401) {
                     window.location.href = AUTO_LOGOUT;
