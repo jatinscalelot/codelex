@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/angular", express.static(__dirname + "/node_modules/angular"));
+app.use("/angular-sanitize", express.static(__dirname + "/node_modules/angular-sanitize"));
 mongoose.set('runValidators', true);
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI, {

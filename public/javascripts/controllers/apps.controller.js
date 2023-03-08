@@ -1,27 +1,33 @@
-app.controller("AppsController", ($scope, $http,) => {
+app.controller("AppsController", ($scope, $http, HelperService) => {
+    $scope.appdata = {
+        acccount_name: '', 
+        package_name: '',
+        banner_ADS: '',
+        native_ADS: '',
+        VPN_key: '',
+        priority: '',
+        application_name: '',
+        app_open_ads: '',
+        interstitial_ADS: '',
+        rewarded_ADS: '',
+        web_URL: '',
+        privacy_policy: '',
+        adx_status_1 : true,
+        adx_status_2 : true,
+        adx_status_3 : true,
+        vpn_status : true,
+        web_url_status : true,
+        all_status : true 
+    };
     $scope.addNew = function () {
         window.location.href = "/apps/create";
     }
     $scope.create = function () {
-        let obj = {
-            acccount_name : $scope.acccount_name,
-            package_name : $scope.package_name,
-            banner_ADS : $scope.banner_ADS,
-            native_ADS : $scope.native_ADS,
-            VPN_key : $scope.VPN_key,
-            priority : $scope.priority,
-            application_name : $scope.application_name,
-            app_open_ads : $scope.app_open_ads,
-            interstitial_ADS : $scope.interstitial_ADS,
-            rewarded_ADS : $scope.rewarded_ADS,
-            web_URL : $scope.web_URL,
-            privacy_policy : $scope.privacy_policy
-        };
         $http({
             url: BASE_URL+'apps',
             method: "POST",
             cache: false,
-            data: obj,
+            data: {appdata : $scope.appdata},
             headers: {
                 "Content-Type": "application/json; charset=UTF-8",
             },
