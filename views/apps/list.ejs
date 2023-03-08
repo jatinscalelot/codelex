@@ -2,13 +2,26 @@
 <div class="container-fluid pt-4 px-4" ng-controller="AppsController">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-12">
-            <div class="bg-secondary rounded h-100 p-4">
-                <div class="m-n2">
+            <div class=" row bg-secondary rounded h-100 p-4">
+                <div class="m-n2 col-sm-4">
+                    <input type="text" class="form-control form-control-lg bg-dark border-0" ng-keyup="onSearch()"
+                        placeholder="Search" ng-model="search" />
+                </div>
+                <div class="m-n2 col-sm-4">
+                    <select class="form-control form-control-lg bg-dark border-0" ng-model="limit"
+                        ng-change="onLimitChange()">
+                        <option value="10" selected>10 per page</option>
+                        <option value="25">25 per page</option>
+                        <option value="50">50 per page</option>
+                        <option value="100">100 per page</option>
+                        <option value="200">200 per page</option>
+                    </select>
+                </div>
+                <div class="m-n2 col-sm-4">
                     <button type="button" class="btn btn-primary m-2" ng-click="addNew()">Add New App</button>
                 </div>
             </div>
         </div>
-
         <div class="col-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">Applications List</h6>
@@ -20,6 +33,11 @@
                                 <th scope="col">Acc Name</th>
                                 <th scope="col">App Name</th>
                                 <th scope="col">Pac. Name</th>
+                                <th scope="col">Adx S1</th>
+                                <th scope="col">Adx S2</th>
+                                <th scope="col">Adx S3</th>
+                                <th scope="col">VPN S</th>
+                                <th scope="col">WU S</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -30,9 +48,48 @@
                                 <td>John</td>
                                 <td>Doe</td>
                                 <td>jhon@email.com</td>
-                                <td>USA</td>
-                                <td>123</td>
-                                <td>Member</td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td> 
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-square btn-outline-info m-2"><i class="fa fa-home"></i></button>
+                                
+                                    <button type="button" class="btn btn-square btn-outline-primary m-2"><i class="fa fa-home"></i></button>
+                                
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -61,20 +118,33 @@
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group me-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-primary">1</button>
-                        <button type="button" class="btn btn-primary">2</button>
-                        <button type="button" class="btn btn-primary">3</button>
-                        <button type="button" class="btn btn-primary">4</button>
-                    </div>
-                    <div class="btn-group me-2" role="group" aria-label="Second group">
-                        <button type="button" class="btn btn-secondary">5</button>
-                        <button type="button" class="btn btn-secondary">6</button>
-                        <button type="button" class="btn btn-secondary">7</button>
-                    </div>
-                    <div class="btn-group" role="group" aria-label="Third group">
-                        <button type="button" class="btn btn-info">8</button>
-                    </div>
+                    <ul class="pagination justify-content-end">
+                        <li class="bg-dark page-item {{ page == 1 ? 'disabled' : '' }}">
+                            <a class="page-link" style="cursor: pointer" tabindex="-1" aria-disabled="true"
+                                ng-click="switchPage(1)">First</a>
+                        </li>
+                        <li class="bg-dark page-item {{ customers.hasPrevPage ? '' : 'disabled' }}">
+                            <a class="page-link" style="cursor: pointer"
+                                ng-click="switchPage(customers.prevPage)" tabindex="-1"
+                                aria-disabled="true">Previous</a>
+                        </li>
+
+                        <li class="bg-dark page-item {{ page == n ? 'active' : '' }} {{n==0?'disabled':''}}"
+                            ng-repeat="n in pageNumberList track by $index">
+                            <a class="page-link" style="cursor: pointer" ng-click="switchPage(n)">
+                                {{ (n != 0) ? n : '...' }}
+                            </a>
+                        </li>
+
+                        <li class="bg-dark page-item {{ customers.hasNextPage ? '' : 'disabled' }}">
+                            <a class="page-link" style="cursor: pointer"
+                                ng-click="switchPage(customers.nextPage)">Next</a>
+                        </li>
+                        <li class="bg-dark page-item {{ page == customers.totalPages ? 'disabled' : '' }}">
+                            <a class="page-link" style="cursor: pointer"
+                                ng-click="switchPage(customers.totalPages)">Last</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
