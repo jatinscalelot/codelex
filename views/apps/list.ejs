@@ -43,78 +43,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>jhon@email.com</td>
+                            <tr ng-repeat="mapp in apps.docs">
+                                <th scope="row">{{ (page - 1) * limit + $index + 1 }}</th>
+                                <td>{{ mapp.acccount_name }}</td>
+                                <td>{{ mapp.application_name }}</td>
+                                <td>{{ mapp.package_name }}</td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.adx_status_1" id="adx_status_1" ng-change="changeadx_status_1(mapp)">
                                     </div>
                                 </td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.adx_status_2" id="adx_status_2" ng-change="changeadx_status_2(mapp)">
                                     </div>
                                 </td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.adx_status_3" id="adx_status_3" ng-change="changeadx_status_3(mapp)">
                                     </div>
                                 </td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.vpn_status" id="vpn_status" ng-change="changevpn_status(mapp)">
                                     </div>
                                 </td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.web_url_status" id="web_url_status" ng-change="changeweb_url_status(mapp)">
                                     </div>
                                 </td>
                                 <td> 
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input" type="checkbox" role="switch" ng-model="mapp.all_status" id="all_status" ng-change="changeall_status(mapp)">
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-square btn-outline-info m-2"><i class="fa fa-home"></i></button>
-                                
-                                    <button type="button" class="btn btn-square btn-outline-primary m-2"><i class="fa fa-home"></i></button>
-                                
+                                    <a href="/apps/edit?aid={{mapp._id}}"><button type="button" class="btn btn-square btn-outline-info"><i class="fa fa-edit"></i></button></a>
+                                    <button type="button" class="btn btn-square btn-outline-primary" ng-click="removeapp(mapp._id)"><i class="fa fa-trash"></i></button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mark@email.com</td>
-                                <td>UK</td>
-                                <td>456</td>
-                                <td>Member</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>jacob@email.com</td>
-                                <td>AU</td>
-                                <td>789</td>
-                                <td>Member</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
         <div class="col-sm-12 col-xl-12">
             <div class="bg-secondary rounded h-100 p-4">
                 <div class="btn-toolbar" role="toolbar">
@@ -123,31 +96,28 @@
                             <a class="page-link" style="cursor: pointer" tabindex="-1" aria-disabled="true"
                                 ng-click="switchPage(1)">First</a>
                         </li>
-                        <li class="bg-dark page-item {{ customers.hasPrevPage ? '' : 'disabled' }}">
+                        <li class="bg-dark page-item {{ apps.hasPrevPage ? '' : 'disabled' }}">
                             <a class="page-link" style="cursor: pointer"
-                                ng-click="switchPage(customers.prevPage)" tabindex="-1"
+                                ng-click="switchPage(apps.prevPage)" tabindex="-1"
                                 aria-disabled="true">Previous</a>
                         </li>
-
                         <li class="bg-dark page-item {{ page == n ? 'active' : '' }} {{n==0?'disabled':''}}"
                             ng-repeat="n in pageNumberList track by $index">
                             <a class="page-link" style="cursor: pointer" ng-click="switchPage(n)">
                                 {{ (n != 0) ? n : '...' }}
                             </a>
                         </li>
-
-                        <li class="bg-dark page-item {{ customers.hasNextPage ? '' : 'disabled' }}">
+                        <li class="bg-dark page-item {{ apps.hasNextPage ? '' : 'disabled' }}">
                             <a class="page-link" style="cursor: pointer"
-                                ng-click="switchPage(customers.nextPage)">Next</a>
+                                ng-click="switchPage(apps.nextPage)">Next</a>
                         </li>
-                        <li class="bg-dark page-item {{ page == customers.totalPages ? 'disabled' : '' }}">
+                        <li class="bg-dark page-item {{ page == apps.totalPages ? 'disabled' : '' }}">
                             <a class="page-link" style="cursor: pointer"
-                                ng-click="switchPage(customers.totalPages)">Last</a>
+                                ng-click="switchPage(apps.totalPages)">Last</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
