@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     let primary = mongoConnection.useDb(constants.DEFAULT_DB);
     let userData = await primary.model(constants.MODELS.users, userModel).findById(req.session.userId).lean();
     if (userData && userData.status == true) {
-      res.redirect("/home");
+      res.redirect("/dashboard");
     } else {
       res.render('login', { layout: false, title: 'Express' });
     }

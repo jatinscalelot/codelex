@@ -14,7 +14,9 @@ var expressLayouts = require('express-ejs-layouts');
 const adminpaths = [
   { pathUrl: '/', routeFile: 'login'},
   { pathUrl: '/dashboard', routeFile: 'dashboard'},
-  { pathUrl: '/apps', routeFile: 'apps'}
+  { pathUrl: '/apps', routeFile: 'apps'},
+  { pathUrl: '/text', routeFile: 'text'},
+  { pathUrl: '/logout', routeFile: 'logout'}
 ];
 var app = express();
 const oneDay = 1000 * 60 * 60 * 24;

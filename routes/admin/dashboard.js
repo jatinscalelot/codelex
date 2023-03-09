@@ -10,24 +10,10 @@ router.get('/', async (req, res) => {
     if(userData && userData.status == true){
       res.render('dashboard', { title: 'dashboard' });
     }else{
-      res.render('login', { layout: false, title: 'Express' });
+      res.redirect("/");
     }
   } else {
-    res.render('dashboard', { title: 'dashboard' });
-  }
-});
-router.post('/', async (req, res) => {
-  if (req.session.userId) {
-    // let primary = mongoConnection.useDb(constants.DEFAULT_DB);
-    // let userData = await primary.model(constants.MODELS.users, userModel).findById(req.session.userId).lean();
-    // if(userData && userData.status == true){
-    //   res.redirect("/home");
-    // }else{
-    //   res.render('login', { layout: false, title: 'Express' });
-    // }
-  } else {
-    console.log('req.body', req.body);
-    // res.render('login', { layout: false, title: 'Express' });
+    res.redirect("/");
   }
 });
 module.exports = router;
