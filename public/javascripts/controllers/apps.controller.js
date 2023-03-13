@@ -212,20 +212,30 @@ app.controller("AppsController", ($scope, $http, HelperService) => {
         );
     };
     $scope.removeapp = (appid) => {
-        $http({
-            url: BASE_URL + "apps/removeapp",
-            method: "POST",
-            cache: false,
-            data: { aid: appid },
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-        }).then(
-            function (response) {
-                if (response.data.IsSuccess == true) {
-                    swal("Congo.", "App data removed successfully...", "success");
-                    $scope.getapps();
-                }
+        swal({
+            title: "Are you sure?",
+            text: "To delete the App permanently ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $http({
+                    url: BASE_URL + "apps/removeapp",
+                    method: "POST",
+                    cache: false,
+                    data: { aid: appid },
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                }).then(
+                    function (response) {
+                        if (response.data.IsSuccess == true) {
+                            swal("Congo.", "App data removed successfully...", "success");
+                            $scope.getapps();
+                        }
+                    }
+                );
             }
-        );
+        });
     };
     $scope.onEditLoad = () => {
         let aid = HelperService.queryString('aid');
