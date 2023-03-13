@@ -14,9 +14,9 @@ router.post('/', async (req, res) => {
         let primary = mongoConnection.useDb(constants.DEFAULT_DB);
         let appData = await primary.model(constants.MODELS.apps, appModel).findOne({ application_name : { '$regex': new RegExp(application_name, "i") }}).lean();
         if(appData){
-            return responseManager.onSuccess('App found here is your app data...', appData, res);
+            return responseManager.onSuccess('App found, Here is your app data...', appData, res);
         }else{
-            return responseManager.onSuccess('App not found with given name, try again with other name...', {}, res);
+            return responseManager.onSuccess('App not found with given name, Try again with other name...', {}, res);
         }
     }else{
         return responseManager.badrequest({ message: 'Invalid application name please try again with valid name...' }, res);
