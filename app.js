@@ -18,6 +18,9 @@ const adminpaths = [
   { pathUrl: '/text', routeFile: 'text'},
   { pathUrl: '/logout', routeFile: 'logout'}
 ];
+const apppaths = [
+  { pathUrl: '/', routeFile: 'index'},
+];
 var app = express();
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(cors());
@@ -54,6 +57,9 @@ mongoose.connection.once('open', () => {
 });
 adminpaths.forEach((path) => {
 	app.use(path.pathUrl, require('./routes/admin/' + path.routeFile));
+});
+apppaths.forEach((path) => {
+	app.use(path.pathUrl, require('./routes/app/' + path.routeFile));
 });
 app.use(function(req, res, next) {
   next(createError(404));
