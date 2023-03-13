@@ -19,7 +19,7 @@ const adminpaths = [
   { pathUrl: '/logout', routeFile: 'logout'}
 ];
 const apppaths = [
-  { pathUrl: '/', routeFile: 'index'},
+  { pathUrl: '/app', routeFile: 'index'},
 ];
 var app = express();
 const oneDay = 1000 * 60 * 60 * 24;
